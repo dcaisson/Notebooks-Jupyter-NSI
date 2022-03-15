@@ -1,0 +1,273 @@
+\documentclass[usenames,dvipsnames]{beamer}
+
+\usetheme{focus}
+
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{dsfont}
+
+\usepackage{xcolor}
+\usepackage{colortbl}
+
+\usepackage{etex}
+
+\usepackage{pstricks,pst-plot,pst-text,pst-tree,pst-eps,pst-fill,pst-node,pst-math}
+\usepackage{pstricks-add,pst-xkey}
+
+\usepackage{multicol}
+
+\usepackage{tikz}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[color=ForestGreen,shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+\begin{document}
+
+\title{La recherche dichotomique -- Exemples}
+
+\date{}
+
+\maketitle{}
+
+\begin{frame}
+  \frametitle{Premier exemple}
+  \begin{itemize}
+    \item On cherche la valeur 5 dans le tableau trié ci-dessous :
+
+      \bigskip
+
+      \renewcommand{\arraystretch}{1.4}
+      \hspace{-7mm}\begin{tabular}{|*{9}{>{\centering}m{8mm}|}}
+	\hline
+	1 & 2 & 5 & 9 & 10 & 14 & 17 & 24 & 41\tabularnewline
+	\hline
+	\multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}$\uparrow$}\tabularnewline
+	\multicolumn{1}{c}{\color{red}déb.} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}fin}\tabularnewline
+      \end{tabular}\pause{}
+    \item La valeur du milieu est $10$ :
+
+      \bigskip
+
+      \renewcommand{\arraystretch}{1.4}
+      \hspace{-7mm}\begin{tabular}{|*{9}{>{\centering}m{8mm}|}}
+	\hline
+	1 & 2 & 5 & 9 & \circled{10} & 14 & 17 & 24 & 41\tabularnewline
+	\hline
+	\multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{ForestGreen}$\uparrow$} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}$\uparrow$}\tabularnewline
+	\multicolumn{1}{c}{\color{red}déb.} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{ForestGreen}mil.} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}fin}\tabularnewline
+      \end{tabular}\pause{}
+    \item Puisque $5<10$, on continue la recherche dans la moitié de gauche du tableau : pour cela, on change la valeur de {\color{red}fin}.\pause{}
+
+     \smallskip
+
+     \begin{center}
+       {\color{red}fin}\ $\gets$\ {\color{ForestGreen}mil.} $-\ 1$
+     \end{center}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \begin{itemize}
+   \item La recherche se poursuit dans la partie non grisée :
+
+     \bigskip
+
+      \renewcommand{\arraystretch}{1.4}
+      \hspace{-7mm}\begin{tabular}{|*{9}{>{\centering}m{8mm}|}}
+	\hline
+	1 & 2 & 5 & 9 &\cellcolor[gray]{0.7} 10 &\cellcolor[gray]{0.7} 14 &\cellcolor[gray]{0.7} 17 &\cellcolor[gray]{0.7} 24 &\cellcolor[gray]{0.7} 41\tabularnewline
+	\hline
+	\multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+	\multicolumn{1}{c}{\color{red}déb.} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}fin} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+      \end{tabular}\pause{}
+    \item La valeur du milieu est $2$ :
+
+      \bigskip
+
+      \renewcommand{\arraystretch}{1.4}
+      \hspace{-7mm}\begin{tabular}{|*{9}{>{\centering}m{8mm}|}}
+	\hline
+	1 & \circled{2} & 5 & 9 &\cellcolor[gray]{0.7} 10 &\cellcolor[gray]{0.7} 14 &\cellcolor[gray]{0.7} 17 &\cellcolor[gray]{0.7} 24 &\cellcolor[gray]{0.7} 41\tabularnewline
+	\hline
+	\multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{\color{ForestGreen}$\uparrow$} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+	\multicolumn{1}{c}{\color{red}déb.} & \multicolumn{1}{c}{\color{ForestGreen}mil.} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}fin} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+      \end{tabular}\pause{}
+    \item Puisque $5>2$, on continue la recherche dans la moitié de droite : pour cela, on change la valeur de {\color{red}déb.}\pause{}
+
+    \smallskip
+
+     \begin{center}
+       {\color{red}déb.} $\gets$\ {\color{ForestGreen}mil.} $+\ 1$
+     \end{center}
+ \end{itemize} 
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+    \item La recherche se poursuit dans la partie non grisée :
+
+      \bigskip
+
+      \renewcommand{\arraystretch}{1.4}
+      \hspace{-7mm}\begin{tabular}{|*{9}{>{\centering}m{8mm}|}}
+	\hline
+	\cellcolor[gray]{0.7}1 &\cellcolor[gray]{0.7} 2 & 5 & 9 &\cellcolor[gray]{0.7} 10 &\cellcolor[gray]{0.7} 14 &\cellcolor[gray]{0.7} 17 &\cellcolor[gray]{0.7} 24 &\cellcolor[gray]{0.7} 41\tabularnewline
+	\hline
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{\color{red}déb.} & \multicolumn{1}{c}{\color{red}fin} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+      \end{tabular}\pause{}
+    \item La valeur du milieu est $5$ :
+
+      \bigskip
+
+      \renewcommand{\arraystretch}{1.4}
+      \hspace{-7mm}\begin{tabular}{|*{9}{>{\centering}m{8mm}|}}
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{\color{ForestGreen}mil.} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{\color{ForestGreen}$\downarrow$} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+	\hline
+	\cellcolor[gray]{0.7}1 &\cellcolor[gray]{0.7} 2 & \circled{5} & 9 &\cellcolor[gray]{0.7} 10 &\cellcolor[gray]{0.7} 14 &\cellcolor[gray]{0.7} 17 &\cellcolor[gray]{0.7} 24 &\cellcolor[gray]{0.7} 41\tabularnewline
+	\hline
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{\color{red}déb.} & \multicolumn{1}{c}{\color{red}fin} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+      \end{tabular}\pause{}
+    \item La recherche s'arrête car on a trouvé la valeur $5$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Second exemple}
+  \begin{itemize}
+    \item On cherche la valeur 15 dans le tableau trié ci-dessous :
+
+      \bigskip
+
+      \renewcommand{\arraystretch}{1.4}
+      \hspace{-7mm}\begin{tabular}{|*{9}{>{\centering}m{8mm}|}}
+	\hline
+	1 & 2 & 5 & 9 & 10 & 14 & 17 & 24 & 41\tabularnewline
+	\hline
+	\multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}$\uparrow$}\tabularnewline
+	\multicolumn{1}{c}{\color{red}déb.} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}fin}\tabularnewline
+      \end{tabular}\pause{}
+    \item La valeur du milieu est $10$ :
+
+      \bigskip
+
+      \renewcommand{\arraystretch}{1.4}
+      \hspace{-7mm}\begin{tabular}{|*{9}{>{\centering}m{8mm}|}}
+	\hline
+	1 & 2 & 5 & 9 & \circled{10} & 14 & 17 & 24 & 41\tabularnewline
+	\hline
+	\multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{ForestGreen}$\uparrow$} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}$\uparrow$}\tabularnewline
+	\multicolumn{1}{c}{\color{red}déb.} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{ForestGreen}mil.} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}fin}\tabularnewline
+      \end{tabular}\pause{}
+    \item Puisque $15>10$, on continue la recherche dans la moitié de droite du tableau : pour cela, on change la valeur de {\color{red}déb.}\pause{}
+
+    \smallskip
+
+     \begin{center}
+       {\color{red}déb.} $\gets$\ {\color{ForestGreen}mil.} $+\ 1$
+     \end{center}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \begin{itemize}
+   \item La recherche se poursuit dans la partie non grisée :
+
+      \bigskip
+
+      \renewcommand{\arraystretch}{1.4}
+      \hspace{-7mm}\begin{tabular}{|*{9}{>{\centering}m{8mm}|}}
+	\hline
+	\cellcolor[gray]{0.7}1 &\cellcolor[gray]{0.7} 2 &\cellcolor[gray]{0.7} 5 &\cellcolor[gray]{0.7} 9 &\cellcolor[gray]{0.7} 10 & 14 & 17 & 24 & 41\tabularnewline
+	\hline
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}$\uparrow$}\tabularnewline
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}déb.} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}fin}\tabularnewline
+      \end{tabular}\pause{}
+    \item La valeur du milieu est $17$ :
+
+      \bigskip
+
+      \renewcommand{\arraystretch}{1.4}
+      \hspace{-7mm}\begin{tabular}{|*{9}{>{\centering}m{8mm}|}}
+	\hline
+	\cellcolor[gray]{0.7}1 &\cellcolor[gray]{0.7} 2 &\cellcolor[gray]{0.7} 5 &\cellcolor[gray]{0.7} 9 &\cellcolor[gray]{0.7} 10 & 14 & \circled{17} & 24 & 41\tabularnewline
+	\hline
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{\color{ForestGreen}$\uparrow$} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}$\uparrow$}\tabularnewline
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}déb.} & \multicolumn{1}{c}{\color{ForestGreen}mil.} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}fin}\tabularnewline
+      \end{tabular}\pause{}
+    \item Puisque $15<17$, on continue la recherche dans la moitié de gauche : pour cela, on change la valeur de {\color{red}fin}.\pause{}
+
+    \smallskip
+
+     \begin{center}
+       {\color{red}fin}\ $\gets$\ {\color{ForestGreen}mil.} $-\ 1$
+     \end{center}
+ \end{itemize} 
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+    \item La recherche se poursuit dans la partie non grisée :
+
+      \bigskip
+
+      \renewcommand{\arraystretch}{1.4}
+      \hspace{-7mm}\begin{tabular}{|*{9}{>{\centering}m{8mm}|}}
+	\hline
+	\cellcolor[gray]{0.7}1 &\cellcolor[gray]{0.7} 2 &\cellcolor[gray]{0.7} 5 &\cellcolor[gray]{0.7} 9 &\cellcolor[gray]{0.7} 10 & 14 &\cellcolor[gray]{0.7} 17 &\cellcolor[gray]{0.7} 24 &\cellcolor[gray]{0.7} 41\tabularnewline
+	\hline
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{3}{c}{\color{red}déb.\ =\ fin}  & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+      \end{tabular}\pause{}
+    \item La valeur du milieu est 14 :
+
+      \bigskip
+
+      \renewcommand{\arraystretch}{1.4}
+      \hspace{-7mm}\begin{tabular}{|*{9}{>{\centering}m{8mm}|}}
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{ForestGreen}mil.} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{ForestGreen}$\downarrow$} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+	\hline
+	\cellcolor[gray]{0.7}1 &\cellcolor[gray]{0.7} 2 &\cellcolor[gray]{0.7} 5 &\cellcolor[gray]{0.7} 9 &\cellcolor[gray]{0.7} 10 & \circled{14} &\cellcolor[gray]{0.7} 17 &\cellcolor[gray]{0.7} 24 &\cellcolor[gray]{0.7} 41\tabularnewline
+	\hline
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{3}{c}{\color{red}déb.\ =\ fin}  & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+      \end{tabular}\pause{}
+   \item Puisque $15>14$, on continue la recherche dans la moitié de droite du tableau : pour cela, on change la valeur de {\color{red}déb.}
+
+    \smallskip
+
+     \begin{center}
+       {\color{red}déb.} $\gets$\ {\color{ForestGreen}mil.} $+\ 1$
+     \end{center}
+  \end{itemize} 
+\end{frame}
+
+\begin{frame}
+ \begin{itemize}
+   \item La partie non grisée est vide car {\color{red}déb.}\ $>$\ {\color{red}fin} : la recherche s'arrête. 
+
+      \bigskip
+
+      \renewcommand{\arraystretch}{1.4}
+      \hspace{-7mm}\begin{tabular}{|*{9}{>{\centering}m{8mm}|}}
+	\hline
+	\cellcolor[gray]{0.7}1 &\cellcolor[gray]{0.7} 2 &\cellcolor[gray]{0.7} 5 &\cellcolor[gray]{0.7} 9 &\cellcolor[gray]{0.7} 10 &\cellcolor[gray]{0.7} 14 &\cellcolor[gray]{0.7} 17 &\cellcolor[gray]{0.7} 24 &\cellcolor[gray]{0.7} 41\tabularnewline
+	\hline
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{\color{red}$\uparrow$} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+	\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}  & \multicolumn{1}{c}{\color{red}fin} & \multicolumn{1}{c}{\color{red}déb.} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+      \end{tabular}\pause{}
+    \item La valeur $15$ n'est donc pas présente dans le tableau initial.
+ \end{itemize} 
+\end{frame}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
